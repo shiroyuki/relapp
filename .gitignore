@@ -1,3 +1,10 @@
+##### Editor: VS Code #####
+.vscode
+
+##### Language: Node.js #####
+node_modules
+
+##### Language: Python #####
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
