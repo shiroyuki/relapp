@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ui:
+    container_name: relapp.web-ui
+    image: nginx:alpine
+    volumes:
+    - ./web-ui:/usr/share/nginx/html:ro
+    ports:
+    - 8080:80
