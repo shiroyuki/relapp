@@ -8,13 +8,16 @@ export interface IVertexProps {
     onMouseDown?: any,
     // Initial Coordinate
     coordinate?: ICoordinate,
+    isRightHandUser: boolean,
 }
 
 export interface IVertexStates {
     // Current Coordinate
-    coordinate?: ICoordinate,
+    coordinate: ICoordinate,
 }
 
 export interface IVertex {
+    getUUID(): any;
+    getCoordinate() : ICoordinate;
     onCanvasUpdate(event : ICanvasUpdateEvent) : void;
 }

@@ -1,7 +1,9 @@
 module.exports = {
-    entry: "./src/index.tsx",
+    entry: {
+        "bundle.js": "./src/index.tsx",
+    },
     output: {
-        filename: "bundle.js",
+        filename: "[name]",
         path: __dirname + "/dist"
     },
 
@@ -15,16 +17,6 @@ module.exports = {
 
     module: {
         rules: [
-            // SCSS
-            {
-                test: /\.scss$/,
-                use: [
-                    "style-loader", // creates style nodes from JS strings
-                    "css-loader", // translates CSS into CommonJS
-                    "sass-loader" // compiles Sass to CSS
-                ]
-            },
-
             // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
             {
                 test: /\.tsx?$/,

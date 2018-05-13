@@ -1,7 +1,27 @@
-.graphapp {
-    background-color: #ccc;
+.graph {
+    display: flex;
+
+    .canvas {
+        // ...
+    }
 
     .vertex {
         cursor: default;
+        order: 0;
+    }
+}
+
+.graph.debug {
+    .canvas {
+        background-color: #ccc;
+    }
+
+    .vertex {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 1px dashed red;
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px;
+        }
     }
 }
