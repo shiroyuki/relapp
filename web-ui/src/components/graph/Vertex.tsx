@@ -26,6 +26,7 @@ export default class Vertex extends React.Component<IVertexProps, IVertexStates>
     }
 
     render() {
+        var classNames = ["vertex"];
         var vertexStyle : React.CSSProperties = {
             position: "absolute",
         };
@@ -35,11 +36,16 @@ export default class Vertex extends React.Component<IVertexProps, IVertexStates>
             vertexStyle.top  = this.state.coordinate.y;
         }
 
+        if (this.state.active) {
+            classNames.push("active");
+        }
+
         return (
             <div
-                className="vertex"
+                className={ classNames.join(" ") }
                 style={ vertexStyle }
                 onMouseDown={ this._onMouseDown.bind(this) }
+                onMouseUp={ this._onMouseUp.bind(this) }
                 onContextMenu={ this.onContextMenu.bind(this) }
             >
                 { this.props.content }
@@ -49,6 +55,19 @@ export default class Vertex extends React.Component<IVertexProps, IVertexStates>
 
     getCoordinate() : ICoordinate {
         return this.state.coordinate;
+    }
+
+    isActive(): boolean {
+        return this.state.active;
+    }
+
+    markAsActive(): void {
+        this.setState({active: true});
+    }
+
+    markAsInactive(): void {
+        console.log('Vertex.markAsInactive');
+        this.setState({active: false});
     }
 
     onContextMenu(e: MouseEvent) {
@@ -83,5 +102,19 @@ export default class Vertex extends React.Component<IVertexProps, IVertexStates>
         e.preventDefault();
 
         this.props.onMouseDown(relayedEvent);
+
+        console.log("Vertex._onMouseDown");
+    }
+
+    _onMouseUp(e : MouseEvent) {
+        if (!this.state.active) {
+            return;
+        }
+
+        e.preventDefault();
+
+        this.props.onMouseUp();
+
+        console.log("Vertex._onMouseUp");
     }
 }

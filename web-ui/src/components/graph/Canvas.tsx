@@ -39,8 +39,19 @@ export default class Canvas extends React.Component<Props, State> {
     }
 
     render() {
+        var style : React.CSSProperties = {
+            // ...
+        };
+
         return (
-            <div className="canvas"></div>
+            <div
+                className="canvas"
+                style={ style }
+                // onMouseDown={ this._onDragStart.bind(this) }
+                // onMouseUp={ this._onDragStop.bind(this) }
+                // onMouseLeave={ this._onDragStop.bind(this) }
+                // onMouseMove={ this._onDragMove.bind(this) }
+            ></div>
         );
     }
 
@@ -54,13 +65,14 @@ export default class Canvas extends React.Component<Props, State> {
 
     _onDragStart(e : MouseEvent) {
         e.preventDefault();
-        e.stopPropagation();
 
         if (!this._isPrimaryMouseButton(e)) {
             return;
         }
 
         this.setState({mouseDown: true});
+
+        console.log("Canvas._onDragStart");
     }
 
     _onDragMove(e : MouseEvent) {
@@ -69,7 +81,6 @@ export default class Canvas extends React.Component<Props, State> {
         }
 
         e.preventDefault();
-        e.stopPropagation();
 
         if (!this._isPrimaryMouseButton(e)) {
             return;
@@ -91,6 +102,8 @@ export default class Canvas extends React.Component<Props, State> {
         });
 
         this.props.onMouseMove(updateEvent);
+
+        console.log("Canvas._onDragMove");
     }
 
     _onDragStop(e : MouseEvent) {
@@ -99,14 +112,11 @@ export default class Canvas extends React.Component<Props, State> {
         }
 
         e.preventDefault();
-        e.stopPropagation();
-
-        if (!this._isPrimaryMouseButton(e)) {
-            return;
-        }
 
         this.setState({mouseDown: false});
 
         this.props.onMouseUp();
+
+        console.log("Canvas._onDragStop");
     }
 }

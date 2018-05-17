@@ -81,6 +81,7 @@ export default class Graph extends React.Component<Props, State> {
                     key={ item.getId() }
                     uuid={ item.getId() }
                     onMouseDown={ this._onVertexMouseDown.bind(this) }
+                    onMouseUp={ this._onVertexMouseUp.bind(this) }
                     content={ this.props.renderer.render(item) }
                     isRightHandUser={ this.state.isRightHandUser }
                 />
@@ -109,7 +110,6 @@ export default class Graph extends React.Component<Props, State> {
         var offsetCoordinate = this.state.offsetCoordinate;
 
         if (!this.state.offsetCoordinate) {
-            console.log('X');
             var vertexCoordinate = activeVertex.getCoordinate();
 
             var offsetCoordinate : ICoordinate = {
@@ -118,8 +118,6 @@ export default class Graph extends React.Component<Props, State> {
             };
 
             this.setState({offsetCoordinate: offsetCoordinate});
-        } else {
-            console.log('O');
         }
 
         var newVertexCoordinate : ICoordinate = {
@@ -133,6 +131,25 @@ export default class Graph extends React.Component<Props, State> {
     }
 
     _onCanvasMouseUp() {
+        console.log('Graph._onCanvasMouseUp');
+
+        if (!this.state.activeVertex) {
+            return;
+        }
+
+        this.state.activeVertex.markAsInactive();
+
+        this.setState({
+            activeVertex: null,
+            offsetCoordinate: null, // do not seem to reset property for some reason.
+        });
+    }
+
+    _onVertexMouseUp() {
+        console.log('Graph._onVertexMouseUp');
+
+        this.state.activeVertex.markAsInactive();
+
         this.setState({
             activeVertex: null,
             offsetCoordinate: null, // do not seem to reset property for some reason.
@@ -149,6 +166,8 @@ export default class Graph extends React.Component<Props, State> {
                 (prioritizedCollection.length > 0 ? prioritizedCollection[prioritizedCollection.length - 1].getPriority() : 0) + 1
             )
         ;
+
+        activeVertex.markAsActive();
 
         this.setState({
             activeVertex: activeVertex,

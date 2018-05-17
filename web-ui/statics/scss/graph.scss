@@ -1,13 +1,17 @@
 .graph {
-    display: flex;
-
     .canvas {
-        // ...
+        min-width: 240px;
+        min-height: 240px;
+        width: 150%;
+        height: 150%;
     }
 
     .vertex {
         cursor: default;
-        order: 0;
+
+        &.active {
+            // ...
+        }
     }
 }
 
@@ -22,6 +26,10 @@
 
         &:hover {
             box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px;
+        }
+
+        &.active {
+            border: 1px dashed green;
         }
     }
 }
